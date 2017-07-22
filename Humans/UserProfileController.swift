@@ -200,6 +200,20 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         present(sheetController, animated: true, completion: nil)
     }
     
+    func blockUser() {
+        let sheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        sheetController.addAction(UIAlertAction(title: "Bloquear usuario", style: .destructive, handler: { (_) in
+            let alert = UIAlertController(title: "", message: "Bloqueaste a \(self.userFullname!)", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }))
+        
+        sheetController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        
+        present(sheetController, animated: true, completion: nil)
+    }
+    
     //    fileprivate func setupLogOutButton() {
     //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
     //    }
@@ -279,6 +293,10 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
         header.backgroundColor = UIColor.white
         header.user = self.user
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(blockUser))
+        header.arrowView.isUserInteractionEnabled = true
+        header.arrowView.addGestureRecognizer(tap)
         
         return header
     }

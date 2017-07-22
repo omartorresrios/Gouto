@@ -143,6 +143,19 @@ class UserProfileHeader: UICollectionViewCell {
         return image
     }()
     
+    let arrowView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let arrowImage: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.image = #imageLiteral(resourceName: "down_arrow").withRenderingMode(.alwaysTemplate)
+        return image
+    }()
+    
     func writeReview() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GoToWriteCV"), object: nil)
     }
@@ -161,6 +174,16 @@ class UserProfileHeader: UICollectionViewCell {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleReturn))
         backView.isUserInteractionEnabled = true
         backView.addGestureRecognizer(tap)
+        
+        addSubview(arrowView)
+        arrowView.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 5, width: 18, height: 18)
+        arrowView.centerYAnchor.constraint(equalTo: backView.centerYAnchor).isActive = true
+        
+        arrowView.addSubview(arrowImage)
+        arrowImage.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 13, height: 13)
+        arrowImage.centerXAnchor.constraint(equalTo: arrowView.centerXAnchor).isActive = true
+        arrowImage.centerYAnchor.constraint(equalTo: arrowView.centerYAnchor).isActive = true
+        arrowImage.tintColor = UIColor(white: 0.4, alpha: 1)
         
         addSubview(profileImageView)
         profileImageView.anchor(top: backView.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 100, height: 100)

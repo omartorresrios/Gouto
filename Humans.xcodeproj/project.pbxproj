@@ -30,7 +30,6 @@
 		A02D69481F13109E00C89DC6 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69471F13109E00C89DC6 /* UserSearchController.swift */; };
 		A02D694A1F1310B000C89DC6 /* UserSearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69491F1310B000C89DC6 /* UserSearchHeader.swift */; };
 		A02D694C1F1310CC00C89DC6 /* WriteReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D694B1F1310CC00C89DC6 /* WriteReviewController.swift */; };
-		A02D69501F13110C00C89DC6 /* dontsmile-collage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A02D694F1F13110C00C89DC6 /* dontsmile-collage.jpg */; };
 		A02D69521F13112400C89DC6 /* friends.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A02D69511F13112400C89DC6 /* friends.jpg */; };
 		A02D69541F13113300C89DC6 /* humans.png in Resources */ = {isa = PBXBuildFile; fileRef = A02D69531F13113300C89DC6 /* humans.png */; };
 		A02D695B1F13118800C89DC6 /* SF-UI-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A02D69551F13118800C89DC6 /* SF-UI-Display-Bold.otf */; };
@@ -73,7 +72,6 @@
 		A02D69471F13109E00C89DC6 /* UserSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
 		A02D69491F1310B000C89DC6 /* UserSearchHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchHeader.swift; sourceTree = "<group>"; };
 		A02D694B1F1310CC00C89DC6 /* WriteReviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteReviewController.swift; sourceTree = "<group>"; };
-		A02D694F1F13110C00C89DC6 /* dontsmile-collage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dontsmile-collage.jpg"; sourceTree = "<group>"; };
 		A02D69511F13112400C89DC6 /* friends.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = friends.jpg; sourceTree = "<group>"; };
 		A02D69531F13113300C89DC6 /* humans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humans.png; sourceTree = "<group>"; };
 		A02D69551F13118800C89DC6 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Bold.otf"; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 		A02D696C1F131BF800C89DC6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				A02D694F1F13110C00C89DC6 /* dontsmile-collage.jpg */,
 				A02D69511F13112400C89DC6 /* friends.jpg */,
 				A02D69531F13113300C89DC6 /* humans.png */,
 				A02D69611F1312C100C89DC6 /* social_reputation.png */,
@@ -344,7 +341,6 @@
 				A044A6171F130412002F6A10 /* Main.storyboard in Resources */,
 				A02D69601F13118800C89DC6 /* SF-UI-Display-Thin.otf in Resources */,
 				A02D695B1F13118800C89DC6 /* SF-UI-Display-Bold.otf in Resources */,
-				A02D69501F13110C00C89DC6 /* dontsmile-collage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -164,9 +164,8 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         
         // Register customize cells
         collectionView?.register(UserSearchHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "searchHeaderId")
-        
-//        setupLogOutButton()
-    }
+        setupLogOutButton()
+     }
     
     func showPopUp() {
         if UserDefaults.standard.bool(forKey: "searchPopUp") == false {
