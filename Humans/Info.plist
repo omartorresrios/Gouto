@@ -17,13 +17,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>We would like to accces to yuour camera to take photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We'd like access to your photos right now</string>
+	<string>We&apos;d like access to your photos right now</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-UI-Display-Bold.otf</string>

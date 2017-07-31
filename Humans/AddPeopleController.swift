@@ -161,7 +161,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         titleLabel.anchor(top: backView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 35, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        if Auth.auth().currentUser?.uid == "BtTwGxPZmYZgkllxZ6IjIttKMn42" {
+        if Auth.auth().currentUser?.uid == "2X5pTpJJoPaGNQjoq2g09rXx71f2" {
             
             view.addSubview(plusPhotoButton)
             
