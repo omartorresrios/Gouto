@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		069C8DE6FF6A0A37FFD701F6 /* Pods_Humans.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152BB8C578D5B3C68E036290 /* Pods_Humans.framework */; };
+		1D2E042EDEEEB531658010F0 /* Pods_Gou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09F88D9F7E068C43CC8D860 /* Pods_Gou.framework */; };
 		A02D69221F130E4D00C89DC6 /* AddPeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69211F130E4D00C89DC6 /* AddPeopleController.swift */; };
 		A02D69241F130ECF00C89DC6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69231F130ECF00C89DC6 /* Reachability.swift */; };
 		A02D69261F130EF000C89DC6 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69251F130EF000C89DC6 /* CustomImageView.swift */; };
@@ -81,7 +81,7 @@
 		A02D69591F13118800C89DC6 /* SF-UI-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Semibold.otf"; sourceTree = "<group>"; };
 		A02D695A1F13118800C89DC6 /* SF-UI-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Thin.otf"; sourceTree = "<group>"; };
 		A02D69611F1312C100C89DC6 /* social_reputation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = social_reputation.png; sourceTree = "<group>"; };
-		A044A60E1F130412002F6A10 /* Humans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Humans.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A044A60E1F130412002F6A10 /* Gou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A044A6111F130412002F6A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A044A6161F130412002F6A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A044A6181F130413002F6A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +90,9 @@
 		A044A6231F130570002F6A10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A052D4F81F13486500DC6891 /* add_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_photo.png; sourceTree = "<group>"; };
 		B5F56AE3C628814F53B51608 /* Pods-Humans.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Humans.release.xcconfig"; path = "Pods/Target Support Files/Pods-Humans/Pods-Humans.release.xcconfig"; sourceTree = "<group>"; };
+		BA8F31C2B113097DE33D97F7 /* Pods-Gou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gou/Pods-Gou.release.xcconfig"; sourceTree = "<group>"; };
+		E6F342BC2C5817A3E73198C9 /* Pods-Gou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gou/Pods-Gou.debug.xcconfig"; sourceTree = "<group>"; };
+		F09F88D9F7E068C43CC8D860 /* Pods_Gou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				069C8DE6FF6A0A37FFD701F6 /* Pods_Humans.framework in Frameworks */,
+				1D2E042EDEEEB531658010F0 /* Pods_Gou.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				152BB8C578D5B3C68E036290 /* Pods_Humans.framework */,
+				F09F88D9F7E068C43CC8D860 /* Pods_Gou.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -218,7 +222,7 @@
 		A044A6051F130412002F6A10 = {
 			isa = PBXGroup;
 			children = (
-				A044A6101F130412002F6A10 /* Humans */,
+				A044A6101F130412002F6A10 /* Gou */,
 				A044A60F1F130412002F6A10 /* Products */,
 				F33FEADF65F0701BA59B3A9F /* Pods */,
 				1CB7E925D94983AE05F936FB /* Frameworks */,
@@ -228,12 +232,12 @@
 		A044A60F1F130412002F6A10 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A044A60E1F130412002F6A10 /* Humans.app */,
+				A044A60E1F130412002F6A10 /* Gou.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A044A6101F130412002F6A10 /* Humans */ = {
+		A044A6101F130412002F6A10 /* Gou */ = {
 			isa = PBXGroup;
 			children = (
 				A02D696D1F131C3600C89DC6 /* AddPeople */,
@@ -252,7 +256,7 @@
 				A044A6231F130570002F6A10 /* GoogleService-Info.plist */,
 				A044A6151F130412002F6A10 /* Main.storyboard */,
 			);
-			path = Humans;
+			path = Gou;
 			sourceTree = "<group>";
 		};
 		F33FEADF65F0701BA59B3A9F /* Pods */ = {
@@ -260,6 +264,8 @@
 			children = (
 				9F7DBC11045B8F99D24EB87E /* Pods-Humans.debug.xcconfig */,
 				B5F56AE3C628814F53B51608 /* Pods-Humans.release.xcconfig */,
+				E6F342BC2C5817A3E73198C9 /* Pods-Gou.debug.xcconfig */,
+				BA8F31C2B113097DE33D97F7 /* Pods-Gou.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -267,9 +273,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A044A60D1F130412002F6A10 /* Humans */ = {
+		A044A60D1F130412002F6A10 /* Gou */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A044A6201F130413002F6A10 /* Build configuration list for PBXNativeTarget "Humans" */;
+			buildConfigurationList = A044A6201F130413002F6A10 /* Build configuration list for PBXNativeTarget "Gou" */;
 			buildPhases = (
 				69D686F5BFDA9AA1775366D5 /* [CP] Check Pods Manifest.lock */,
 				A044A60A1F130412002F6A10 /* Sources */,
@@ -282,9 +288,9 @@
 			);
 			dependencies = (
 			);
-			name = Humans;
+			name = Gou;
 			productName = Humans;
-			productReference = A044A60E1F130412002F6A10 /* Humans.app */;
+			productReference = A044A60E1F130412002F6A10 /* Gou.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -304,7 +310,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A044A6091F130412002F6A10 /* Build configuration list for PBXProject "Humans" */;
+			buildConfigurationList = A044A6091F130412002F6A10 /* Build configuration list for PBXProject "Gou" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -317,7 +323,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A044A60D1F130412002F6A10 /* Humans */,
+				A044A60D1F130412002F6A10 /* Gou */,
 			);
 		};
 /* End PBXProject section */
@@ -359,7 +365,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Humans/Pods-Humans-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gou/Pods-Gou-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		69D686F5BFDA9AA1775366D5 /* [CP] Check Pods Manifest.lock */ = {
@@ -389,7 +395,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Humans/Pods-Humans-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gou/Pods-Gou-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -540,13 +546,13 @@
 		};
 		A044A6211F130413002F6A10 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F7DBC11045B8F99D24EB87E /* Pods-Humans.debug.xcconfig */;
+			baseConfigurationReference = E6F342BC2C5817A3E73198C9 /* Pods-Gou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = W7KDN9ZT24;
-				INFOPLIST_FILE = Humans/Info.plist;
+				INFOPLIST_FILE = Gou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.Humans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.Gou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -554,13 +560,13 @@
 		};
 		A044A6221F130413002F6A10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5F56AE3C628814F53B51608 /* Pods-Humans.release.xcconfig */;
+			baseConfigurationReference = BA8F31C2B113097DE33D97F7 /* Pods-Gou.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = W7KDN9ZT24;
-				INFOPLIST_FILE = Humans/Info.plist;
+				INFOPLIST_FILE = Gou/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.Humans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.Gou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -569,7 +575,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A044A6091F130412002F6A10 /* Build configuration list for PBXProject "Humans" */ = {
+		A044A6091F130412002F6A10 /* Build configuration list for PBXProject "Gou" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A044A61E1F130413002F6A10 /* Debug */,
@@ -578,7 +584,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A044A6201F130413002F6A10 /* Build configuration list for PBXNativeTarget "Humans" */ = {
+		A044A6201F130413002F6A10 /* Build configuration list for PBXNativeTarget "Gou" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A044A6211F130413002F6A10 /* Debug */,
