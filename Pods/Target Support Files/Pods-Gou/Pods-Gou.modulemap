@@ -1,0 +1,6 @@
+framework module Pods_Gou {
+  umbrella header "Pods-Gou-umbrella.h"
+
+  export *
+  module * { export * }
+}
