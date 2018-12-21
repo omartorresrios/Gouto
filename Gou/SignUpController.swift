@@ -63,7 +63,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     }()
     
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         return indicator
     }()
@@ -72,7 +72,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         let button = UIButton(type: .system)
         button.titleLabel?.numberOfLines = 0
         
-        let attributedTitle = NSMutableAttributedString(string: "Continuando, aceptas nuestros Términos de Servicio.", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 12)!, NSForegroundColorAttributeName:UIColor(white: 0.5, alpha: 1)])
+        let attributedTitle = NSMutableAttributedString(string: "Continuando, aceptas nuestros Términos de Servicio.", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 12)!, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor(white: 0.5, alpha: 1)]))
         
         button.setAttributedTitle(attributedTitle, for: .normal)
         
@@ -82,15 +82,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // General properties of the view
-        view.backgroundColor = .white
-        
-        // Initialize functions
         setupViews()
-        
-        // Reachability for checking internet connection
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +107,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         }
     }
     
-    func handlePlusPhoto() {
+    @objc func handlePlusPhoto() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
@@ -123,7 +115,10 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             plusPhotoButton.image = editedImage.withRenderingMode(.alwaysOriginal)
@@ -138,23 +133,23 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         dismiss(animated: true, completion: nil)
     }
     
-    func handleShowTermsOfService() {
+    @objc func handleShowTermsOfService() {
         let termsOfServiceController = TermsOfServiceController()
         navigationController?.pushViewController(termsOfServiceController, animated: true)
     }
     
-    func goBackView() {
+    @objc func goBackView() {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    func handleSignUp() {
+    @objc func handleSignUp() {
         view.endEditing(true)
         loader.startAnimating()
         
         if (reachability?.isReachable)! {
-            guard let userFullname = fullname.text, userFullname.characters.count > 0 else { return }
-            guard let userEmail = email.text, userEmail.characters.count > 0 else { return }
-            guard let userPassword = password.text, userPassword.characters.count > 0 else { return }
+            guard let userFullname = fullname.text, userFullname.count > 0 else { return }
+            guard let userEmail = email.text, userEmail.count > 0 else { return }
+            guard let userPassword = password.text, userPassword.count > 0 else { return }
             
             Auth.auth().createUser(withEmail: userEmail, password: userPassword, completion: { (user, error) in
                 if let err = error {
@@ -166,7 +161,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
                 
                 guard let image = self.plusPhotoButton.image else { return }
                 
-                guard let uploadData = UIImageJPEGRepresentation(image, 0.3) else { return }
+                guard let uploadData = image.jpegData(compressionQuality: 0.3) else { return }
                 
                 let filename = NSUUID().uuidString
                 Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: { (metadata, err) in
@@ -210,14 +205,16 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
             })
             
         } else {
-            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             self.loader.stopAnimating()
         }
     }
     
     func setupViews() {
+        view.backgroundColor = .white
+        
         view.addSubview(backView)
         
         backView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 18, height: 18)
@@ -253,4 +250,20 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         loader.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor).isActive = true
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

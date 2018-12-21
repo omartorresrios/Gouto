@@ -74,7 +74,7 @@ class UserDataController: UIViewController, UIImagePickerControllerDelegate, UIN
     }()
     
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         return indicator
     }()
@@ -112,7 +112,7 @@ class UserDataController: UIViewController, UIImagePickerControllerDelegate, UIN
         UIApplication.shared.isStatusBarHidden = true
     }
     
-    func handlePasswordCount() {
+    @objc func handlePasswordCount() {
         let password = passwordTextField.text?.characters.count ?? 0
         
         if password == 0 {
@@ -129,7 +129,7 @@ class UserDataController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func handleTextInputChange() {
+    @objc func handleTextInputChange() {
         messageLabel.text = ""
         loader.stopAnimating()
         
@@ -144,7 +144,7 @@ class UserDataController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    func handleSignUp() {
+    @objc func handleSignUp() {
         messageLabel.textColor = UIColor.rgb(red: 234, green: 51, blue: 94)
         messageLabel.text = ""
         loader.startAnimating()
@@ -186,14 +186,14 @@ class UserDataController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.messageLabel.text = "Introduce un correo válido por favor."
             }
         } else {
-            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             self.loader.stopAnimating()
         }
     }
     
-    func goBackView() {
+    @objc func goBackView() {
         _ = navigationController?.popViewController(animated: true)
     }
     

@@ -42,7 +42,7 @@ class TermsOfServiceController: UIViewController {
         
     }
     
-    func goBackView() {
+    @objc func goBackView() {
         _ = navigationController?.popViewController(animated: true)
     }
 }

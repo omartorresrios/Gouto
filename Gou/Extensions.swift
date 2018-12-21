@@ -60,6 +60,12 @@ extension UIView {
     
 }
 
+extension UIApplication {
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
+    }
+}
+
 extension Date {
     func timeAgoDisplay() -> String {
         let secondsAgo = Int(Date().timeIntervalSince(self))
@@ -101,7 +107,7 @@ extension UIButton
     
 {
     func setUpLayer(sampleButton: UIButton?) {
-        sampleButton!.setTitle("GET STARTED", for: UIControlState.normal)
+        sampleButton!.setTitle("GET STARTED", for: UIControl.State.normal)
         sampleButton?.tintColor =  UIColor.white
         sampleButton!.frame = CGRect(x:50, y:500, width:170, height:40)
         sampleButton!.layer.borderWidth = 1.0

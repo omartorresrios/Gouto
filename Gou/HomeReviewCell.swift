@@ -51,11 +51,11 @@ class HomeReviewCell: UICollectionViewCell {
         guard let spaceFont = UIFont(name: "SFUIDisplay-Regular", size: 4) else { return }
         guard let contentFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
         
-        let attributedText = NSMutableAttributedString(string: review.fromFullname, attributes: [NSFontAttributeName: nameFont])
+        let attributedText = NSMutableAttributedString(string: review.fromFullname, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): nameFont]))
         
-        attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: spaceFont]))
+        attributedText.append(NSAttributedString(string: "\n\n", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): spaceFont])))
         
-        attributedText.append(NSAttributedString(string: "\(review.content)", attributes: [NSFontAttributeName: contentFont]))
+        attributedText.append(NSAttributedString(string: "\(review.content)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): contentFont])))
         
         captionLabel.attributedText = attributedText
         
@@ -80,7 +80,7 @@ class HomeReviewCell: UICollectionViewCell {
         return button
     }()
     
-    func handleComment() {
+    @objc func handleComment() {
         print("Trying to show comments...")
         guard let review = review else { return }
         
@@ -160,4 +160,15 @@ class HomeReviewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

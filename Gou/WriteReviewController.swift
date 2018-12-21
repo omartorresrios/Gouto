@@ -79,7 +79,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         let tv = UITextView()
         tv.font = UIFont(name: "SFUIDisplay-Regular", size: 14)
         tv.autocorrectionType = .no
-        tv.textContainerInset = UIEdgeInsetsMake(10, 7, 5, 0)
+        tv.textContainerInset = UIEdgeInsets.init(top: 10, left: 7, bottom: 5, right: 0)
         return tv
     }()
     
@@ -135,7 +135,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
     let sendReviewButton: UIBarButtonItem = {
         let sb = UIBarButtonItem(title: "ENVIAR", style: .plain, target: self, action: #selector(handleSendReview))
         if let font = UIFont(name: "SFUIDisplay-Semibold", size: 15) {
-            sb.setTitleTextAttributes([NSFontAttributeName: font,NSForegroundColorAttributeName: UIColor.white], for: .normal)
+            sb.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white]), for: .normal)
         }
         sb.isEnabled = false
         return sb
@@ -145,7 +145,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         let cb = M13Checkbox()
         cb.tintColor = UIColor.mainGreen()
         cb.secondaryTintColor = UIColor.rgb(red: 85, green: 85, blue: 85)
-        cb.addTarget(self, action: #selector(checkboxReview), for: UIControlEvents.valueChanged)
+        cb.addTarget(self, action: #selector(checkboxReview), for: UIControl.Event.valueChanged)
         return cb
     }()
     
@@ -157,7 +157,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
     }()
     
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         indicator.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height / 2)
         return indicator
@@ -192,7 +192,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    func reachabilityStatusChanged() {
+    @objc func reachabilityStatusChanged() {
         print("Checking connectivity...")
     }
     
@@ -208,7 +208,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-    func handleSendReview() {
+    @objc func handleSendReview() {
         view.endEditing(true)
         loader.startAnimating()
         
@@ -336,7 +336,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         
     }
     
-    func checkboxReview() {
+    @objc func checkboxReview() {
         if checkbox.checkState == .checked {
             JDStatusBarNotification.show(withStatus: "Reseña anónima", dismissAfter: 2.0, styleName: JDStatusBarStyleDark)
         } else if checkbox.checkState == .unchecked {
@@ -344,14 +344,14 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-    func positiveReview(tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func positiveReview(tapGestureRecognizer: UITapGestureRecognizer) {
         positiveReview.image = #imageLiteral(resourceName: "happy_face_selected")
         negativeReview.image = #imageLiteral(resourceName: "sad_face_unselected")
         
         JDStatusBarNotification.show(withStatus: "Reseña positiva", dismissAfter: 2.0, styleName: JDStatusBarStyleDark)
     }
     
-    func negativeReview(tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func negativeReview(tapGestureRecognizer: UITapGestureRecognizer) {
         negativeReview.image = #imageLiteral(resourceName: "sad_face_selected")
         positiveReview.image = #imageLiteral(resourceName: "happy_face_unselected")
         
@@ -435,7 +435,7 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         
     }
     
-    func exitWriteReviewController() {
+    @objc func exitWriteReviewController() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -475,4 +475,15 @@ class WriteReviewController: UICollectionViewController, UICollectionViewDelegat
         }
         return (newLength > 500) ? false : true
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

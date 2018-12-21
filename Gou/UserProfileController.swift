@@ -11,16 +11,8 @@ import Firebase
 
 class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let homeReviewCellId = "homeReviewCellId"
-    var reviews = [Review]()
-    var user: User?
-    
-    var userId: String?
-    var userFullname: String?
-    var userImageUrl: String?
-    
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         indicator.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 270) // 250 is the header height + 20
         indicator.startAnimating()
@@ -36,10 +28,30 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         return ml
     }()
     
+    var reviews = [Review]()
+    var user: User?
+    
+    let homeReviewCellId = "homeReviewCellId"
+    
+    var userId: String?
+    var userFullname: String?
+    var userImageUrl: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // General properties of the view
+        setupCollectionView()
+        subviewsAnchors()
+        checkIfReviewsExists()
+        fetchUser()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UIApplication.shared.isStatusBarHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func setupCollectionView() {
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
         
@@ -51,37 +63,15 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         lightView.backgroundColor = .white
         collectionView?.backgroundView = lightView
         
-        // Other configurations
-        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
+        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerId")
         collectionView?.register(HomeReviewCell.self, forCellWithReuseIdentifier: homeReviewCellId)
         
         NotificationCenter.default.addObserver(self, selector: #selector(showPreviousCV), name: NSNotification.Name(rawValue: "GoToSearchFromProfile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showWriteCV), name: NSNotification.Name(rawValue: "GoToWriteCV"), object: nil)
-        
-        // Initialize functions
-        subviewsAnchors()
-        checkIfReviewsExists()
-        fetchUser()
-        
-        // Reachability for checking internet connection
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
-        
-        //        setupLogOutButton()
-        
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        self.view.isUserInteractionEnabled = true
-//    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        UIApplication.shared.isStatusBarHidden = true
-        navigationController?.tabBarController?.tabBar.isHidden = true
-    }
-    
-    func reachabilityStatusChanged() {
+    @objc func reachabilityStatusChanged() {
         print("Checking connectivity...")
     }
     
@@ -92,7 +82,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         messageLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 263 , paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0) //263 -> 243 is the header height, plus 20
     }
     
-    func showWriteCV() {
+    @objc func showWriteCV() {
         let layout = UICollectionViewFlowLayout()
         let writeReviewController = WriteReviewController(collectionViewLayout: layout)
         
@@ -104,7 +94,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         present(navController, animated: true, completion: nil)
     }
     
-    func showPreviousCV() {
+    @objc func showPreviousCV() {
         _ = navigationController?.popViewController(animated: true)
         navigationController?.isNavigationBarHidden = false
     }
@@ -114,9 +104,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         guard let messageFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
         
         guard let userName = self.userFullname else { return }
-        let attributedText = NSMutableAttributedString(string: userName, attributes: [NSFontAttributeName: nameFont])
+        let attributedText = NSMutableAttributedString(string: userName, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): nameFont]))
         
-        attributedText.append(NSAttributedString(string: " todavía no tiene reseñas 😮.\n ¡Déjale una! ", attributes: [NSFontAttributeName: messageFont]))
+        attributedText.append(NSAttributedString(string: " todavía no tiene reseñas 😮.\n ¡Déjale una! ", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): messageFont])))
         
         self.messageLabel.attributedText = attributedText
     }
@@ -180,18 +170,18 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         } else {
             self.loader.stopAnimating()
             
-            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func showArrow() {
+    @objc func showArrow() {
         let sheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         sheetController.addAction(UIAlertAction(title: "Reportar", style: .destructive, handler: { (_) in
-            let alert = UIAlertController(title: "", message: "Revisaremos tu reporte. 🤔", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "¡Gracias!", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "", message: "Revisaremos tu reporte. 🤔", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "¡Gracias!", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }))
         
@@ -200,12 +190,12 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         present(sheetController, animated: true, completion: nil)
     }
     
-    func blockUser() {
+    @objc func blockUser() {
         let sheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         sheetController.addAction(UIAlertAction(title: "Bloquear usuario", style: .destructive, handler: { (_) in
-            let alert = UIAlertController(title: "", message: "Bloqueaste a \(self.userFullname!)", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "", message: "Bloqueaste a \(self.userFullname!)", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }))
         
@@ -213,34 +203,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         
         present(sheetController, animated: true, completion: nil)
     }
-    
-    //    fileprivate func setupLogOutButton() {
-    //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
-    //    }
-    
-    //    func handleLogOut() {
-    //        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    //
-    //        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-    //
-    //            do {
-    //                try FIRAuth.auth()?.signOut()
-    //
-    //                //what happens? we need to present some kind of login controller
-    //                let loginController = LoginController()
-    //                let navController = UINavigationController(rootViewController: loginController)
-    //                self.present(navController, animated: true, completion: nil)
-    //
-    //            } catch let signOutErr {
-    //                print("Failed to sign out:", signOutErr)
-    //            }
-    //
-    //        }))
-    //
-    //        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    //
-    //        present(alertController, animated: true, completion: nil)
-    //    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
@@ -305,4 +267,15 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         
         return CGSize(width: view.frame.width, height: 246/*248*/) //231 real height  ||  +12 for bottom space
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

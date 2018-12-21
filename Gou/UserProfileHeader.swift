@@ -34,24 +34,24 @@ class UserProfileHeader: UICollectionViewCell {
         guard let numbersFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
         guard let normalFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
         
-        let attributedReview = NSMutableAttributedString(string: "\(reviewsText)", attributes: [NSFontAttributeName: numbersFont])
+        let attributedReview = NSMutableAttributedString(string: "\(reviewsText)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): numbersFont]))
         
         if user?.reviewsCount == 1 {
-            attributedReview.append(NSAttributedString(string: " reseña", attributes: [NSFontAttributeName: normalFont]))
+            attributedReview.append(NSAttributedString(string: " reseña", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
         } else {
-            attributedReview.append(NSAttributedString(string: " reseñas", attributes: [NSFontAttributeName: normalFont]))
+            attributedReview.append(NSAttributedString(string: " reseñas", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
         }
         
         reviewsLabel.attributedText = attributedReview
         
         guard let pointsText = user?.points else { return }
         
-        let attributedPoint = NSMutableAttributedString(string: "\(pointsText)", attributes: [NSFontAttributeName: numbersFont])
+        let attributedPoint = NSMutableAttributedString(string: "\(pointsText)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): numbersFont]))
         
         if user?.points == 1 || user?.points == -1 {
-            attributedPoint.append(NSAttributedString(string: " punto", attributes: [NSFontAttributeName: normalFont]))
+            attributedPoint.append(NSAttributedString(string: " punto", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
         } else {
-            attributedPoint.append(NSAttributedString(string: " puntos", attributes: [NSFontAttributeName: normalFont]))
+            attributedPoint.append(NSAttributedString(string: " puntos", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
         }
         
         pointsLabel.attributedText = attributedPoint
@@ -156,11 +156,11 @@ class UserProfileHeader: UICollectionViewCell {
         return image
     }()
     
-    func writeReview() {
+    @objc func writeReview() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GoToWriteCV"), object: nil)
     }
     
-    func handleReturn() {
+    @objc func handleReturn() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GoToSearchFromProfile"), object: nil)
     }
     
@@ -227,3 +227,14 @@ class UserProfileHeader: UICollectionViewCell {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}

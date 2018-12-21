@@ -10,16 +10,7 @@ import UIKit
 import Firebase
 import PopupDialog
 
-extension UIApplication {
-    var statusBarView: UIView? {
-        return value(forKey: "statusBar") as? UIView
-    }
-}
-
 class UserRankingController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    let cellId = "cellId"
-    var users = [User]()
     
     let popUpLabel: UILabel = {
         let label = UILabel()
@@ -31,22 +22,36 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
     }()
     
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         indicator.startAnimating()
         return indicator
     }()
     
+    var users = [User]()
+    
+    let cellId = "cellId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupCollectionView()
+        showPopUp()
+        fetchUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        guard let font = UIFont(name: "SFUIDisplay-Medium", size: 18) else { return }
+        navigationController?.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.font.rawValue: font, NSAttributedString.Key.foregroundColor.rawValue: UIColor.white])
+        self.navigationItem.title = "Ranking de reputación"
+    }
+    
+    func setupCollectionView() {
         collectionView?.backgroundColor = .white
         
         collectionView?.addSubview(loader)
         let indicatorYStartPosition = (navigationController?.navigationBar.frame.size.height)! + 10
         loader.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: indicatorYStartPosition)
-        
-        showPopUp()
         
         navigationController?.navigationBar.barTintColor = UIColor.mainGreen()
         
@@ -59,23 +64,13 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         
         // Reachability for checking internet connection
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
-        
-        fetchUsers()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        UIApplication.shared.isStatusBarHidden = false
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        guard let font = UIFont(name: "SFUIDisplay-Medium", size: 18) else { return }
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.white]
-        self.navigationItem.title = "Ranking de reputación"
-        
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
-    func reachabilityStatusChanged() {
+    @objc func reachabilityStatusChanged() {
         print("Checking connectivity...")
     }
     
@@ -136,8 +131,6 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
     }
     
     fileprivate func fetchUsers() {
-        print("Fetching users..")
-        
         // Check for internet connection
         if (reachability?.isReachable)! {
             
@@ -175,8 +168,8 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         } else {
             self.loader.stopAnimating()
             
-            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -197,8 +190,6 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         } else {
             cell.numberLabel.textColor = .black
         }
-        
-        
         cell.user = users[indexPath.item]
         return cell
     }
@@ -219,4 +210,10 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         return CGSize(width: view.frame.width, height: 66)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

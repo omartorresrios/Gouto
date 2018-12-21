@@ -44,37 +44,30 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // General properties of the view
+        setupView()
+        setupButtons()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    func setupView() {
         view.backgroundColor = .white
         let backgroundImage = UIImageView(image: UIImage(named: "friends.jpg")!)
         backgroundImage.contentMode = .scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
         
         backgroundImage.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.size.width, height: view.frame.size.height)
-        
-        // Others configurations
-        
-        
-        // Initialize functions
-        setupButtons()
-        
-        // Reachability for checking internet connection
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        UIApplication.shared.isStatusBarHidden = true
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    func goToLogin() {
+    @objc func goToLogin() {
         let loginController = LoginController()
         navigationController?.pushViewController(loginController, animated: true)
     }
     
-    func goToSignUp() {
+    @objc func goToSignUp() {
         let userDataController = UserDataController()
         navigationController?.pushViewController(userDataController, animated: true)
     }

@@ -61,7 +61,7 @@ class LoginController: UIViewController {
     }()
     
     let loader: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let indicator = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         indicator.alpha = 1.0
         return indicator
     }()
@@ -76,39 +76,28 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // General properties of the view
-        view.backgroundColor = .white
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        
-        navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.isStatusBarHidden = true
-        
-        // Others configurations
-        emailTextField.becomeFirstResponder()
-        
-        // Initialize functions
+        setupView()
         setupInputFields()
-        
-        // Reachability for checking internet connection
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.isStatusBarHidden = false
+    func setupView() {
+        view.backgroundColor = .white
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isHidden = true
+        
+        emailTextField.becomeFirstResponder()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func handleTextInputChange() {
+    @objc func handleTextInputChange() {
         messageLabel.text = ""
         loader.stopAnimating()
         
-        let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
+        let isFormValid = emailTextField.text?.count ?? 0 > 0 && passwordTextField.text?.count ?? 0 > 0
         
         if isFormValid {
             loginButton.isEnabled = true
@@ -119,7 +108,7 @@ class LoginController: UIViewController {
         }
     }
     
-    func handleLogin() {
+    @objc func handleLogin() {
         view.endEditing(true)
         loader.startAnimating()
         
@@ -178,15 +167,15 @@ class LoginController: UIViewController {
                 self.messageLabel.text = "Introduce un correo válido por favor."
             }
         } else {
-            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             self.loader.stopAnimating()
         }
         
     }
     
-    func goBackView() {
+    @objc func goBackView() {
         _ = navigationController?.popViewController(animated: true)
     }
     

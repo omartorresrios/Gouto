@@ -32,25 +32,25 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         let label = UILabel()
         label.font = UIFont(name: "SFUIDisplay-Regular", size: 17)
         
-        let attributedText = NSMutableAttributedString(string: "Envía los siguientes datos a este correo ", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 14)!])
+        let attributedText = NSMutableAttributedString(string: "Envía los siguientes datos a este correo ", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 14)!]))
         
-        attributedText.append(NSAttributedString(string: "addhumans1@gmail.com :", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Semibold", size: 14)!]))
+        attributedText.append(NSAttributedString(string: "addhumans1@gmail.com :", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Semibold", size: 14)!])))
         
-        attributedText.append(NSAttributedString(string: "\n\n\n\n", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 4)!]))
+        attributedText.append(NSAttributedString(string: "\n\n\n\n", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 4)!])))
         
-        attributedText.append(NSAttributedString(string: "1) Nombre y apellido: ", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Medium", size: 14)!]))
+        attributedText.append(NSAttributedString(string: "1) Nombre y apellido: ", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Medium", size: 14)!])))
         
-        attributedText.append(NSAttributedString(string: "Puede ser solo nombre.", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 14)!]))
+        attributedText.append(NSAttributedString(string: "Puede ser solo nombre.", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 14)!])))
         
-        attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 4)!]))
+        attributedText.append(NSAttributedString(string: "\n\n", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 4)!])))
         
-        attributedText.append(NSAttributedString(string: "2) Foto: ", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Medium", size: 14)!]))
+        attributedText.append(NSAttributedString(string: "2) Foto: ", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Medium", size: 14)!])))
         
-        attributedText.append(NSAttributedString(string: "Preferible que se note bien su rostro.", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 14)!]))
+        attributedText.append(NSAttributedString(string: "Preferible que se note bien su rostro.", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 14)!])))
         
-        attributedText.append(NSAttributedString(string: "\n\n\n\n\n\n", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Regular", size: 4)!]))
+        attributedText.append(NSAttributedString(string: "\n\n\n\n\n\n", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Regular", size: 4)!])))
         
-        attributedText.append(NSAttributedString(string: "¡Ah! y no olvides poner tu nombre en el asunto. ¡Así podremos darte los puntos! 🙂", attributes: [NSFontAttributeName: UIFont(name: "SFUIDisplay-Medium", size: 15)!]))
+        attributedText.append(NSAttributedString(string: "¡Ah! y no olvides poner tu nombre en el asunto. ¡Así podremos darte los puntos! 🙂", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "SFUIDisplay-Medium", size: 15)!])))
         
         label.attributedText = attributedText
         label.numberOfLines = 0
@@ -66,7 +66,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         return button
     }()
     
-    func handlePlusPhoto() {
+    @objc func handlePlusPhoto() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
@@ -74,7 +74,10 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             plusPhotoButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -112,7 +115,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         return button
     }()
     
-    func handleTextInputChange() {
+    @objc func handleTextInputChange() {
         let isFormValid = fullnameTextField.text?.characters.count ?? 0 > 0
         
         if isFormValid {
@@ -142,7 +145,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         UIApplication.shared.isStatusBarHidden = true
     }
     
-    func backToSearchCV() {
+    @objc func backToSearchCV() {
         _ = navigationController?.popViewController(animated: true)
         navigationController?.isNavigationBarHidden = false
     }
@@ -201,7 +204,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
         return s
     }
     
-    func handleSignUp() {
+    @objc func handleSignUp() {
         guard let fullname = fullnameTextField.text, fullname.characters.count > 0 else { return }
         
         let email = random(15) + "@example.com"
@@ -217,7 +220,7 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
             
             guard let image = self.plusPhotoButton.imageView?.image else { return }
             
-            guard let uploadData = UIImageJPEGRepresentation(image, 0.3) else { return }
+            guard let uploadData = image.jpegData(compressionQuality: 0.3) else { return }
             
             let filename = NSUUID().uuidString
             
@@ -286,4 +289,20 @@ class AddPeopleController: UICollectionViewController, UIImagePickerControllerDe
             
         })
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }
