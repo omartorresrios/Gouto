@@ -10,16 +10,15 @@ import UIKit
 
 class UserRankingCell: UICollectionViewCell {
     
-    var user: User? {
+    var userViewModel: UserViewModel! {
         didSet {
-            fullnameLabel.text = user?.fullname
+            fullnameLabel.text = userViewModel.fullname
             
-            guard let profileImageUrl = user?.profileImageUrl else { return }
+            let profileImageUrl = userViewModel.profileImageUrl
             profileImageView.loadImage(urlString: profileImageUrl)
             
-            if let pointsText = user?.points {
-                pointsLabel.text = "\(pointsText)"
-            }
+            pointsLabel.text = "\(userViewModel.points)"
+            
         }
     }
     

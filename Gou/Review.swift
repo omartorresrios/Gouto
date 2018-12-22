@@ -12,7 +12,7 @@ struct Review {
     
     var id: String?
     
-    let user: User
+    let user: UserViewModel
     let fromFullname: String
     let content: String
     let fromId: String
@@ -22,7 +22,7 @@ struct Review {
     
     var hasLiked = false
     
-    init(user: User, dictionary: [String: Any]) {
+    init(user: UserViewModel, dictionary: [String: Any]) {
         self.user = user
         self.fromFullname = dictionary["fromFullname"] as? String ?? ""
         self.content = dictionary["content"] as? String ?? ""

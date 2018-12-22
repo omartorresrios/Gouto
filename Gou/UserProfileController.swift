@@ -28,8 +28,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         return ml
     }()
     
-    var reviews = [Review]()
-    var user: User?
+    var reviewViewModels = [ReviewViewModel]()
+    var userViewModel: UserViewModel!
     
     let homeReviewCellId = "homeReviewCellId"
     
@@ -130,18 +130,18 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
     
     fileprivate func fetchOrderedReviews() {
-        guard let uid = self.user?.uid else { return }
+        let uid = userViewModel.uid
         let ref = Database.database().reference().child("reviews").child(uid)
         
         //perhaps later on we'll implement some pagination of data
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else { return }
             
-            guard let user = self.user else { return }
+            guard let user = self.userViewModel else { return }
             
             let review = Review(user: user, dictionary: dictionary)
-            
-            self.reviews.insert(review, at: 0)
+            let finalReview = ReviewViewModel(user: user, review: review)
+            self.reviewViewModels.insert(finalReview, at: 0)
             
             self.collectionView?.reloadData()
             
@@ -160,8 +160,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             let uid = userId ?? (Auth.auth().currentUser?.uid ?? "")
             
             Database.fetchUserWithUID(uid: uid) { (user) in
-                self.user = user
-                self.navigationItem.title = self.user?.fullname
+                self.userViewModel = user
+                self.navigationItem.title = self.userViewModel.fullname
                 
                 self.collectionView?.reloadData()
                 
@@ -209,16 +209,16 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if reviews.count > 0 {
+        if reviewViewModels.count > 0 {
             self.messageLabel.isHidden = true
         }
-        return reviews.count
+        return reviewViewModels.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homeReviewCellId, for: indexPath) as! HomeReviewCell
-        cell.review = reviews[indexPath.item]
+        cell.reviewViewModel = reviewViewModels[indexPath.item]
         cell.backgroundColor = .white
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(showArrow))
@@ -240,7 +240,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         let dummyCell = HomeReviewCell(frame: frame)
-        dummyCell.review = reviews[indexPath.item]
+        dummyCell.reviewViewModel = reviewViewModels[indexPath.item]
         dummyCell.layoutIfNeeded()
         
         let targetSize = CGSize(width: view.frame.width, height: 1000)
@@ -254,7 +254,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
         header.backgroundColor = UIColor.white
-        header.user = self.user
+        header.userViewModel = self.userViewModel
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(blockUser))
         header.arrowView.isUserInteractionEnabled = true

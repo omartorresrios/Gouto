@@ -50,8 +50,8 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         return ml
     }()
     
-    var filteredUsers = [User]()
-    var users = [User]()
+    var filteredUserViewModels = [UserViewModel]()
+    var userViewModels = [UserViewModel]()
     
     let cellId = "cellId"
     
@@ -135,14 +135,14 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            filteredUsers = users
+            filteredUserViewModels = userViewModels
         } else {
-            filteredUsers = self.users.filter { (user) -> Bool in
+            filteredUserViewModels = self.userViewModels.filter { (user) -> Bool in
                 return user.fullname.lowercased().contains(searchText.lowercased())
             }
         }
         
-        if filteredUsers.isEmpty {
+        if filteredUserViewModels.isEmpty {
             messageLabel.isHidden = false
             messageLabel.text = "🙁 No encontramos a esa persona."
         } else {
@@ -172,16 +172,17 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
                     guard let userDictionary = value as? [String: Any] else { return }
                     
                     let user = User(uid: key, dictionary: userDictionary)
-                    self.users.append(user)
+                    let finalUser = UserViewModel(user: user)
+                    self.userViewModels.append(finalUser)
                 })
                 
-                self.users.sort(by: { (u1, u2) -> Bool in
+                self.userViewModels.sort(by: { (u1, u2) -> Bool in
                     
                     return u1.fullname.compare(u2.fullname) == .orderedAscending
                     
                 })
                 
-                self.filteredUsers = self.users
+                self.filteredUserViewModels = self.userViewModels
                 self.collectionView?.reloadData()
                 self.loader.stopAnimating()
                 
@@ -275,12 +276,12 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredUsers.count
+        return filteredUserViewModels.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserSearchCell
-        cell.user = filteredUsers[indexPath.item]
+        cell.userViewModel = filteredUserViewModels[indexPath.item]
         
         return cell
     }
@@ -289,7 +290,7 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         searchBar.isHidden = true
         searchBar.resignFirstResponder()
         
-        let user = filteredUsers[indexPath.item]
+        let user = filteredUserViewModels[indexPath.item]
         
         let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileController.userId = user.uid

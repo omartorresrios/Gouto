@@ -28,7 +28,7 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         return indicator
     }()
     
-    var users = [User]()
+    var userViewModels = [UserViewModel]()
     
     let cellId = "cellId"
     
@@ -116,7 +116,7 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let user = users[indexPath.item]
+        let user = userViewModels[indexPath.item]
         print("user selected: \(user.fullname)")
         let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
         
@@ -149,10 +149,11 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
                     guard let userDictionary = value as? [String: Any] else { return }
                     
                     let user = User(uid: key, dictionary: userDictionary)
-                    self.users.append(user)
+                    let finalUser = UserViewModel(user: user)
+                    self.userViewModels.append(finalUser)
                 })
                 
-                self.users.sort(by: { (u1, u2) -> Bool in
+                self.userViewModels.sort(by: { (u1, u2) -> Bool in
                     
                     return u1.points > u2.points
                     
@@ -175,7 +176,7 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return userViewModels.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -190,7 +191,7 @@ class UserRankingController: UICollectionViewController, UICollectionViewDelegat
         } else {
             cell.numberLabel.textColor = .black
         }
-        cell.user = users[indexPath.item]
+        cell.userViewModel = userViewModels[indexPath.item]
         return cell
     }
     

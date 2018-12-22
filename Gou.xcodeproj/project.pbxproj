@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D2E042EDEEEB531658010F0 /* Pods_Gou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F09F88D9F7E068C43CC8D860 /* Pods_Gou.framework */; };
+		A02B250A21CD9C7800819FB7 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B250921CD9C7800819FB7 /* UserViewModel.swift */; };
+		A02B250C21CD9EB500819FB7 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B250B21CD9EB500819FB7 /* ReviewViewModel.swift */; };
+		A02B250E21CDB9C300819FB7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B250D21CDB9C300819FB7 /* Constants.swift */; };
 		A02D69221F130E4D00C89DC6 /* AddPeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69211F130E4D00C89DC6 /* AddPeopleController.swift */; };
 		A02D69241F130ECF00C89DC6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69231F130ECF00C89DC6 /* Reachability.swift */; };
 		A02D69261F130EF000C89DC6 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D69251F130EF000C89DC6 /* CustomImageView.swift */; };
@@ -50,6 +53,9 @@
 /* Begin PBXFileReference section */
 		152BB8C578D5B3C68E036290 /* Pods_Humans.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Humans.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7DBC11045B8F99D24EB87E /* Pods-Humans.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Humans.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Humans/Pods-Humans.debug.xcconfig"; sourceTree = "<group>"; };
+		A02B250921CD9C7800819FB7 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		A02B250B21CD9EB500819FB7 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		A02B250D21CDB9C300819FB7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A02D69211F130E4D00C89DC6 /* AddPeopleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPeopleController.swift; sourceTree = "<group>"; };
 		A02D69231F130ECF00C89DC6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A02D69251F130EF000C89DC6 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -116,6 +122,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A02B250821CD9C6800819FB7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A02B250921CD9C7800819FB7 /* UserViewModel.swift */,
+				A02B250B21CD9EB500819FB7 /* ReviewViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 		A02D69641F131B6C00C89DC6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +140,7 @@
 				A02D69251F130EF000C89DC6 /* CustomImageView.swift */,
 				A02D69271F130F0A00C89DC6 /* Extensions.swift */,
 				A02D69291F130F2200C89DC6 /* FirebaseUtils.swift */,
+				A02B250D21CDB9C300819FB7 /* Constants.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -240,6 +256,7 @@
 		A044A6101F130412002F6A10 /* Gou */ = {
 			isa = PBXGroup;
 			children = (
+				A02B250821CD9C6800819FB7 /* ViewModel */,
 				A02D696D1F131C3600C89DC6 /* AddPeople */,
 				A02D696A1F131BC000C89DC6 /* WriteReview */,
 				A02D69651F131B8500C89DC6 /* Login/Signup */,
@@ -407,11 +424,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02D69481F13109E00C89DC6 /* UserSearchController.swift in Sources */,
+				A02B250A21CD9C7800819FB7 /* UserViewModel.swift in Sources */,
 				A02D693C1F13100E00C89DC6 /* UserDataController.swift in Sources */,
 				A02D69381F130FE800C89DC6 /* TermsOfServiceController.swift in Sources */,
 				A02D69441F13106600C89DC6 /* UserRankingController.swift in Sources */,
 				A02D69401F13103900C89DC6 /* UserProfileHeader.swift in Sources */,
 				A02D69281F130F0A00C89DC6 /* Extensions.swift in Sources */,
+				A02B250E21CDB9C300819FB7 /* Constants.swift in Sources */,
 				A02D694C1F1310CC00C89DC6 /* WriteReviewController.swift in Sources */,
 				A02D69301F130F7000C89DC6 /* MainTabBarController.swift in Sources */,
 				A02D692C1F130F3E00C89DC6 /* HomeReviewCell.swift in Sources */,
@@ -429,6 +448,7 @@
 				A02D69261F130EF000C89DC6 /* CustomImageView.swift in Sources */,
 				A02D69461F13108100C89DC6 /* UserSearchCell.swift in Sources */,
 				A02D69341F130FA200C89DC6 /* SignUpController.swift in Sources */,
+				A02B250C21CD9EB500819FB7 /* ReviewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

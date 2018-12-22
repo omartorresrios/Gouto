@@ -10,12 +10,10 @@ import UIKit
 
 class UserSearchCell: UICollectionViewCell {
     
-    var user: User? {
+    var userViewModel: UserViewModel! {
         didSet {
-            fullnameLabel.text = user?.fullname
-            
-            guard let profileImageUrl = user?.profileImageUrl else { return }
-            
+            fullnameLabel.text = userViewModel.fullname
+            let profileImageUrl = userViewModel.profileImageUrl
             profileImageView.loadImage(urlString: profileImageUrl)
         }
     }

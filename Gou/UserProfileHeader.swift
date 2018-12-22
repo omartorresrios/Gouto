@@ -12,50 +12,21 @@ import JDStatusBarNotification
 
 class UserProfileHeader: UICollectionViewCell {
     
-    var user: User? {
+    var userViewModel: UserViewModel? {
         didSet {
-            guard let profileImageUrl = user?.profileImageUrl else { return }
+            guard let profileImageUrl = userViewModel?.profileImageUrl else { return }
             profileImageView.loadImage(urlString: profileImageUrl)
             
-            fullnameLabel.text = user?.fullname
+            fullnameLabel.text = userViewModel?.fullname
             
-            setupAttributedUserData()
+            reviewsLabel.attributedText = userViewModel?.reviewsLabel
+            pointsLabel.attributedText = userViewModel?.pointsLabel
             
-            if user?.isValidated == true {
+            if userViewModel?.isValidated == true {
                 addSubview(verifiedImage)
                 verifiedImage.anchor(top: profileImageView.topAnchor, left: nil, bottom: nil, right: profileImageView.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 5, width: 20, height: 20)
-            }
-            
+            }   
         }
-    }
-    
-    fileprivate func setupAttributedUserData() {
-        guard let reviewsText = user?.reviewsCount else { return }
-        guard let numbersFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
-        guard let normalFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
-        
-        let attributedReview = NSMutableAttributedString(string: "\(reviewsText)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): numbersFont]))
-        
-        if user?.reviewsCount == 1 {
-            attributedReview.append(NSAttributedString(string: " reseña", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
-        } else {
-            attributedReview.append(NSAttributedString(string: " reseñas", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
-        }
-        
-        reviewsLabel.attributedText = attributedReview
-        
-        guard let pointsText = user?.points else { return }
-        
-        let attributedPoint = NSMutableAttributedString(string: "\(pointsText)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): numbersFont]))
-        
-        if user?.points == 1 || user?.points == -1 {
-            attributedPoint.append(NSAttributedString(string: " punto", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
-        } else {
-            attributedPoint.append(NSAttributedString(string: " puntos", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalFont])))
-        }
-        
-        pointsLabel.attributedText = attributedPoint
-        
     }
     
     let profileImageView: CustomImageView = {

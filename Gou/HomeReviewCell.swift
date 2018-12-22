@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HomeReviewCellDelegate {
-    func didTapComment(review: Review)
+    func didTapComment(review: ReviewViewModel)
     func didLike(for cell: HomeReviewCell)
 }
 
@@ -19,10 +19,10 @@ class HomeReviewCell: UICollectionViewCell {
     
     var userProfileController = UserProfileController()
     
-    var review: Review? {
+    var reviewViewModel: ReviewViewModel? {
         didSet {
             
-            guard let profileImageUrl = review?.fromProfileImageUrl else { return }
+            guard let profileImageUrl = reviewViewModel?.fromProfileImageUrl else { return }
             
             if profileImageUrl == "" {
                 userProfileImageView.image = #imageLiteral(resourceName: "humans_icon")
@@ -30,9 +30,9 @@ class HomeReviewCell: UICollectionViewCell {
                 userProfileImageView.loadImage(urlString: profileImageUrl)
             }
             
-            setupAttributedContent()
+            captionLabel.attributedText = reviewViewModel?.captionLabel
             
-            if review?.isPositive == true {
+            if reviewViewModel?.isPositive == true {
                 captionLabel.addSubview(dotImage)
                 dotImage.anchor(top: mainView.topAnchor, left: mainView.leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 0, paddingRight: 0, width: 5, height: 5)
                 dotImage.tintColor = UIColor.mainGreen()
@@ -44,23 +44,6 @@ class HomeReviewCell: UICollectionViewCell {
         }
     }
     
-    fileprivate func setupAttributedContent() {
-        guard let review = self.review else { return }
-        
-        guard let nameFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
-        guard let spaceFont = UIFont(name: "SFUIDisplay-Regular", size: 4) else { return }
-        guard let contentFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
-        
-        let attributedText = NSMutableAttributedString(string: review.fromFullname, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): nameFont]))
-        
-        attributedText.append(NSAttributedString(string: "\n\n", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): spaceFont])))
-        
-        attributedText.append(NSAttributedString(string: "\(review.content)", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): contentFont])))
-        
-        captionLabel.attributedText = attributedText
-        
-    }
-    
     let userProfileImageView: CustomImageView = {
         let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
@@ -69,7 +52,6 @@ class HomeReviewCell: UICollectionViewCell {
     }()
     
     func handleLike() {
-        print("Handling like from within cell...")
         delegate?.didLike(for: self)
     }
     
@@ -81,9 +63,7 @@ class HomeReviewCell: UICollectionViewCell {
     }()
     
     @objc func handleComment() {
-        print("Trying to show comments...")
-        guard let review = review else { return }
-        
+        guard let review = reviewViewModel else { return }
         delegate?.didTapComment(review: review)
     }
     
