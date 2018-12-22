@@ -131,7 +131,57 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
-		A02D69641F131B6C00C89DC6 /* Utils */ = {
+		A02B250F21CDE98200819FB7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A02D692F1F130F7000C89DC6 /* MainTabBarController.swift */,
+				A02D696D1F131C3600C89DC6 /* AddPeople */,
+				A02D696A1F131BC000C89DC6 /* WriteReview */,
+				A02D69651F131B8500C89DC6 /* Login/Signup */,
+				A02D69671F131BA200C89DC6 /* UserProfile */,
+				A02D69681F131BAE00C89DC6 /* UserRanking */,
+				A02D69691F131BB700C89DC6 /* UserSearch */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		A02B251021CDE9C800819FB7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A02B251321CDE9F200819FB7 /* UserSearch */,
+				A02B251221CDE9E600819FB7 /* UserRanking */,
+				A02B251121CDE9D700819FB7 /* UserProfile */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		A02B251121CDE9D700819FB7 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				A02D693F1F13103900C89DC6 /* UserProfileHeader.swift */,
+				A02D692B1F130F3E00C89DC6 /* HomeReviewCell.swift */,
+			);
+			name = UserProfile;
+			sourceTree = "<group>";
+		};
+		A02B251221CDE9E600819FB7 /* UserRanking */ = {
+			isa = PBXGroup;
+			children = (
+				A02D69411F13105000C89DC6 /* UserRankingCell.swift */,
+			);
+			name = UserRanking;
+			sourceTree = "<group>";
+		};
+		A02B251321CDE9F200819FB7 /* UserSearch */ = {
+			isa = PBXGroup;
+			children = (
+				A02D69451F13108100C89DC6 /* UserSearchCell.swift */,
+				A02D69491F1310B000C89DC6 /* UserSearchHeader.swift */,
+			);
+			name = UserSearch;
+			sourceTree = "<group>";
+		};
+		A02D69641F131B6C00C89DC6 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
 				A02D696C1F131BF800C89DC6 /* Images */,
@@ -142,7 +192,7 @@
 				A02D69291F130F2200C89DC6 /* FirebaseUtils.swift */,
 				A02B250D21CDB9C300819FB7 /* Constants.swift */,
 			);
-			name = Utils;
+			name = "Supporting files";
 			sourceTree = "<group>";
 		};
 		A02D69651F131B8500C89DC6 /* Login/Signup */ = {
@@ -157,21 +207,19 @@
 			name = Login/Signup;
 			sourceTree = "<group>";
 		};
-		A02D69661F131B9A00C89DC6 /* Models */ = {
+		A02D69661F131B9A00C89DC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				A02D69311F130F8400C89DC6 /* Review.swift */,
 				A02D69391F130FF700C89DC6 /* User.swift */,
 			);
-			name = Models;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		A02D69671F131BA200C89DC6 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
 				A02D693D1F13102400C89DC6 /* UserProfileController.swift */,
-				A02D693F1F13103900C89DC6 /* UserProfileHeader.swift */,
-				A02D692B1F130F3E00C89DC6 /* HomeReviewCell.swift */,
 			);
 			name = UserProfile;
 			sourceTree = "<group>";
@@ -180,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				A02D69431F13106600C89DC6 /* UserRankingController.swift */,
-				A02D69411F13105000C89DC6 /* UserRankingCell.swift */,
 			);
 			name = UserRanking;
 			sourceTree = "<group>";
@@ -189,8 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				A02D69471F13109E00C89DC6 /* UserSearchController.swift */,
-				A02D69451F13108100C89DC6 /* UserSearchCell.swift */,
-				A02D69491F1310B000C89DC6 /* UserSearchHeader.swift */,
 			);
 			name = UserSearch;
 			sourceTree = "<group>";
@@ -256,16 +301,11 @@
 		A044A6101F130412002F6A10 /* Gou */ = {
 			isa = PBXGroup;
 			children = (
+				A02B251021CDE9C800819FB7 /* View */,
 				A02B250821CD9C6800819FB7 /* ViewModel */,
-				A02D696D1F131C3600C89DC6 /* AddPeople */,
-				A02D696A1F131BC000C89DC6 /* WriteReview */,
-				A02D69651F131B8500C89DC6 /* Login/Signup */,
-				A02D69661F131B9A00C89DC6 /* Models */,
-				A02D69671F131BA200C89DC6 /* UserProfile */,
-				A02D69681F131BAE00C89DC6 /* UserRanking */,
-				A02D69691F131BB700C89DC6 /* UserSearch */,
-				A02D69641F131B6C00C89DC6 /* Utils */,
-				A02D692F1F130F7000C89DC6 /* MainTabBarController.swift */,
+				A02B250F21CDE98200819FB7 /* Controller */,
+				A02D69661F131B9A00C89DC6 /* Model */,
+				A02D69641F131B6C00C89DC6 /* Supporting files */,
 				A044A6111F130412002F6A10 /* AppDelegate.swift */,
 				A044A6181F130413002F6A10 /* Assets.xcassets */,
 				A044A61A1F130413002F6A10 /* LaunchScreen.storyboard */,
